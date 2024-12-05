@@ -1,0 +1,152 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="UnitFrame.lua"/>
+    <Frame name="BananaAuraFrameTemplate" virtual="true">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon"/>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture name="$parentBorder" file="Interface\Buttons\UI-Debuff-Overlays">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="-1" y="-1"/>
+                        <Anchor point="TOPRIGHT" x="1" y="1"/>
+                    </Anchors>
+                    <TexCoords left="0.296875" right="0.5703125" top="0" bottom="0.515625"/>
+                </Texture>
+                <FontString name="$parentCount" inherits="NumberFontNormalSmall" justifyH="RIGHT">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT" x="5" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture name="$parentStealable" file="Interface\TargetingFrame\UI-TargetingFrame-Stealable" hidden="true" alphaMode="ADD">
+                    <Anchors>
+                        <Anchor point="BOTTOMLEFT" x="-3" y="-3"/>
+                        <Anchor point="TOPRIGHT" x="3" y="3"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Cooldown name="$parentCooldown" inherits="CooldownFrameTemplate" reverse="true" drawEdge="true" hidden="true">
+                <Anchors>
+                    <Anchor point="CENTER" x="0" y="-1"/>
+                </Anchors>
+            </Cooldown>
+        </Frames>
+    </Frame>
+    <StatusBar name="BananaStatusBarTemplate" virtual="true">
+        <BarTexture file="Interface\TargetingFrame\UI-StatusBar" />
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentText" inherits="TextStatusBarText">
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+    </StatusBar>
+    <Frame name="BananaUnitFrameTemplate" virtual="true">
+        <!-- 与nameplate大小保持一致，注意x y都需要，不能将一个放到子类里 -->
+        <!-- 注意UI-Tooltip-Border的高度不能太窄，否则上下材质会重叠 -->
+        <Size x="134" y="26" />
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize val="16"/>
+            <TileSize val="16"/>
+            <!-- <BorderColor r="1" g="0.78" b="0"/> 太鲜艳不好看 -->
+            <Color r="0" g="0" b="0"/>
+            <BackgroundInsets left="3" right="3" top="3" bottom="3"/>
+        </Backdrop>
+        <Frames>
+            <StatusBar name="$parentHealthBar" inherits="BananaStatusBarTemplate">
+                <Size y="11"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="4" y="-4"/>
+                    <Anchor point="TOPRIGHT" x="-4" y="-4"/>
+                </Anchors>
+            </StatusBar>
+            <StatusBar name="$parentManaBar" inherits="BananaStatusBarTemplate">
+                <Size y="7"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativeTo="$parentHealthBar" relativePoint="BOTTOMLEFT"/>
+                    <Anchor point="TOPRIGHT" relativeTo="$parentHealthBar" relativePoint="BOTTOMRIGHT"/>
+                </Anchors>
+            </StatusBar>
+            <Frame name="$parentGlow" hidden="true">
+                <Backdrop edgeFile="Interface\AddOns\BananaPreference\Res\UnitFrameGlow">
+                    <EdgeSize val="16"/>
+                    <TileSize val="16"/>
+                </Backdrop>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="-8" y="-6"/>
+                    <Anchor point="TOPRIGHT" x="9" y="7"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+    <!-- 系统姓名板的frameLevel=10/20 (未选择/已选择)，时间长了还会有姓名板跑到前面，原因未知 -->
+    <!-- PlayerFrameHealthBar:GetHeight()=12 -->
+    <Frame name="BananaPlayerFrame" parent="BananaHUDFrame" frameLevel="22" inherits="BananaUnitFrameTemplate">
+        <Anchors>
+            <Anchor point="TOP" relativePoint="CENTER" x="0" y="-120"/>
+        </Anchors>
+        <Scripts>
+            <OnLoad function="BananaPlayerFrame_OnLoad"/>
+            <OnEvent function="BananaPlayerFrame_OnEvent"/>
+        </Scripts>
+        <Frames>
+            <Frame name="BananaPetFrame" inherits="BananaUnitFrameTemplate">
+                <Size x="71" y="26"/>
+                <Anchors>
+                    <Anchor point="RIGHT" relativePoint="LEFT" x="-12" y="0"/>
+                </Anchors>
+                <Scripts>
+                    <OnLoad function="BananaPetFrame_OnLoad"/>
+                    <OnEvent function="BananaPetFrame_OnEvent"/>
+                </Scripts>
+            </Frame>
+            <Frame name="$parentRuneFrame" inherits="BananaRuneFrameTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="0" y="-22"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+    <Frame name="BananaTargetFrame" parent="BananaHUDFrame" frameLevel="22" inherits="BananaUnitFrameTemplate">
+        <Size x="197" y="26" />
+        <Anchors>
+            <Anchor point="BOTTOM" relativePoint="CENTER" x="0" y="240"/>
+        </Anchors>
+        <Scripts>
+            <OnLoad function="BananaTargetFrame_OnLoad"/>
+            <OnEvent function="BananaTargetFrame_OnEvent"/>
+        </Scripts>
+        <Layers>
+            <Layer level="ARTWORK">
+                <FontString name="$parentName" inherits="SystemFont_Med3">
+                    <Shadow>
+                        <Offset x="1.6" y="-1.6"/>
+                    </Shadow>
+                    <Anchors>
+                        <Anchor point="BOTTOM" relativePoint="TOP" x="0" y="2"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <StatusBar name="$parentCastingBar" inherits="BananaTargetCastingBarTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" x="23" y="-17"/>
+                </Anchors>
+            </StatusBar>
+            <Frame name="$parentComboFrame" inherits="BananaComboFrameTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="0" y="-32"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+</Ui>

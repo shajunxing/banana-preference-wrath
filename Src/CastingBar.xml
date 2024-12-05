@@ -1,0 +1,64 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="CastingBar.lua"/>
+    <!-- 参考CastingBarFrame.xml、TargetFrame.xml:622、TargetFrame.lua:791 -->
+    <StatusBar name="BananaCastingBarTemplate" virtual="true">
+        <Size x="150" y="10"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture setAllPoints="true">
+                    <Color r="0" g="0" b="0" a="0.5"/>
+                </Texture>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture name="$parentBorder" file="Interface\CastingBar\UI-CastingBar-Border-Small">
+                    <Size x="197" y="49"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="20"/>
+                    </Anchors>
+                </Texture>
+                <Texture name="$parentBorderShield" file="Interface\CastingBar\UI-CastingBar-Small-Shield">
+                    <Size x="197" y="49"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="-5" y="20"/>
+                    </Anchors>
+                </Texture>
+                <FontString name="$parentText" inherits="SystemFont_Shadow_Small">
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="0"/>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentIcon">
+                    <Size x="16" y="16"/>
+                    <Anchors>
+                        <Anchor point="RIGHT" relativePoint="LEFT" x="-5" y="0"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="OVERLAY">
+                <Texture name="$parentSpark" file="Interface\CastingBar\UI-CastingBar-Spark" alphaMode="ADD">
+                    <Size x="32" y="32"/>
+                    <Anchors>
+                        <Anchor point="CENTER"/>
+                    </Anchors>
+                </Texture>
+                <Texture name="$parentFlash" file="Interface\CastingBar\UI-CastingBar-Flash-Small" alphaMode="ADD">
+                    <Size x="197" y="49"/>
+                    <Anchors>
+                        <Anchor point="TOP" x="0" y="20"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <BarTexture file="Interface\TargetingFrame\UI-StatusBar"/>
+        <BarColor r="1.0" g="0.7" b="0.0"/>
+    </StatusBar>
+    <StatusBar name="BananaTargetCastingBarTemplate" inherits="BananaCastingBarTemplate" virtual="true">
+        <Scripts>
+            <OnLoad function="BananaTargetCastingBar_OnLoad"/>
+            <OnEvent function="BananaTargetCastingBar_OnEvent"/>
+            <OnUpdate function="BananaTargetCastingBar_OnUpdate"/>
+            <OnShow function="BananaTargetCastingBar_OnShow"/>
+        </Scripts>
+    </StatusBar>
+</Ui>

@@ -1,0 +1,109 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Debug.lua"/>
+    <Frame name="BananaOutputFrame" parent="UIParent" toplevel="true" movable="true" resizable="true" enableMouse="true" clampedToScreen="true" hidden="true">
+        <Size x="1024" y="512"/>
+        <ResizeBounds>
+            <minResize x="256" y="128"/>
+        </ResizeBounds>
+        <Anchors>
+            <Anchor point="TOP" x="0" y="0"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\Tooltips\UI-Tooltip-Background" edgeFile="Interface\Tooltips\UI-Tooltip-Border" tile="true">
+            <EdgeSize val="16"/>
+            <TileSize val="16"/>
+            <BackgroundInsets left="5" right="5" top="5" bottom="5"/>
+            <Color r="0.09" g="0.09" b="0.19"/>
+        </Backdrop>
+        <Layers>
+            <Layer level="BORDER">
+                <FontString name="$parentTitle" inherits="GameFontNormal" text="Banana Output">
+                    <Anchors>
+                        <Anchor point="TOPLEFT" x="7" y="-7"/>
+                        <Anchor point="BOTTOMRIGHT" relativePoint="TOPRIGHT" x="-32" y="-25"/>
+                    </Anchors>
+                </FontString>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Button name="$parentCloseButton" inherits="UIPanelCloseButton">
+                <Anchors>
+                    <Anchor point="TOPRIGHT" x="1" y="0"/>
+                </Anchors>
+            </Button>
+            <Button name="$parentResizer">
+                <Size x="16" y="16"/>
+                <Anchors>
+                    <Anchor point="BOTTOMRIGHT" x="-5" y="7"/>
+                </Anchors>
+				<NormalTexture file="Interface\ChatFrame\UI-ChatIM-SizeGrabber-Up"/>
+				<HighlightTexture file="Interface\ChatFrame\UI-ChatIM-SizeGrabber-Highlight"/>
+				<PushedTexture file="Interface\ChatFrame\UI-ChatIM-SizeGrabber-Down"/>
+                <Scripts>
+                    <OnMouseDown>
+                        self:GetParent():StartSizing()
+                        self:GetParent():SetUserPlaced(false)
+                    </OnMouseDown>
+                    <OnMouseUp>
+                        self:GetParent():StopMovingOrSizing()
+                        self:GetParent():SetUserPlaced(false)
+                    </OnMouseUp>
+                </Scripts>
+            </Button>
+            <Frame name="$parentEditor" enableMouse="true">
+                <Anchors>
+                    <Anchor point="TOPLEFT" x="7" y="-27"/>
+                    <Anchor point="BOTTOMRIGHT" x="-7" y="27"/>
+                </Anchors>
+                <Layers>
+                    <Layer level="BACKGROUND">
+                        <Texture name="$parentBackground">
+                            <Color r="0" g="0" b="0" a="0.4" />
+                        </Texture>
+                    </Layer>
+                </Layers>
+                <Frames>
+                    <ScrollFrame name="$parentScrollFrame" inherits="UIPanelScrollFrameTemplate">
+                        <Anchors>
+                            <Anchor point="TOPLEFT"/>
+                            <Anchor point="BOTTOMRIGHT" x="-22" y="0"/>
+                        </Anchors>
+                        <ScrollChild>
+                            <EditBox name="$parentEditBox" multiLine="true" autoFocus="false">
+                                <Anchors>
+                                    <Anchor point="TOPLEFT"/>
+                                </Anchors>
+                                <FontString inherits="ChatFontNormal"/>
+                                <Scripts>
+									<OnEscapePressed function="EditBox_ClearFocus"/>
+                                </Scripts>
+                            </EditBox>
+                        </ScrollChild>
+                        <Scripts>
+                            <OnLoad>
+                            </OnLoad>
+                            <OnSizeChanged>
+                                getglobal(self:GetName() .. "EditBox"):SetWidth(self:GetWidth() / UIParent:GetScale())
+                            </OnSizeChanged>
+                        </Scripts>
+                    </ScrollFrame>
+                </Frames>
+                <Scripts>
+                    <OnMouseDown>
+                        getglobal(self:GetName() .. "ScrollFrameEditBox"):SetFocus()
+                    </OnMouseDown>
+                </Scripts>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnMouseDown>
+                self:StartMoving()
+                self:SetUserPlaced(false)
+            </OnMouseDown>
+            <OnMouseUp>
+                self:StopMovingOrSizing()
+                self:SetUserPlaced(false)
+            </OnMouseUp>
+        </Scripts>
+    </Frame>
+</Ui>

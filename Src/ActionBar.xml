@@ -1,0 +1,155 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="ActionBar.lua"/>
+    <CheckButton name="BananaActionButtonTemplate" enableKeyboard="false" enableMouse="false"  virtual="true">
+        <Size x="32" y="32"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon"/>
+            </Layer>
+            <Layer level="ARTWORK">
+                <Texture name="$parentFlash" file="Interface\Buttons\UI-QuickslotRed"/>
+                <FontString name="$parentHotKey" inherits="NumberFontNormalSmallGray">
+                    <Anchors>
+                        <Anchor point="TOPRIGHT">
+                            <Offset x="-2" y="-2"/>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+                <FontString name="$parentCount" inherits="NumberFontNormal">
+                    <Anchors>
+                        <Anchor point="BOTTOMRIGHT">
+                            <Offset x="-2" y="2"/>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+            </Layer>
+            <Layer level="OVERLAY">
+                <FontString name="$parentName" inherits="GameFontHighlightSmallOutline">
+                    <Size x="36" y="10"/>
+                    <Anchors>
+                        <Anchor point="BOTTOM">
+                            <Offset x="0" y="2"/>
+                        </Anchor>
+                    </Anchors>
+                </FontString>
+                <Texture name="$parentBorder" file="Interface\Buttons\UI-ActionButton-Border" alphaMode="ADD">
+                    <Size x="62" y="62"/>
+                    <Anchors>
+                        <Anchor point="CENTER">
+                            <Offset x="0" y="0"/>
+                        </Anchor>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Cooldown name="$parentCooldown" inherits="CooldownFrameTemplate">
+                <Size x="36" y="36"/>
+                <Anchors>
+                    <Anchor point="CENTER" x="0" y="-1"/>
+                </Anchors>
+            </Cooldown>
+        </Frames>
+        <NormalTexture name="$parentNormalTexture" file="Interface\Buttons\UI-Quickslot2">
+            <Size x="66" y="66"/>
+            <Anchors>
+                <Anchor point="CENTER" x="0" y="-1"/>
+            </Anchors>
+        </NormalTexture>
+        <PushedTexture name="$parentPushedTexture" file="Interface\Buttons\UI-Quickslot-Depress"/>
+        <HighlightTexture name="$parentHighlightTexture" file="Interface\Buttons\ButtonHilight-Square" alphaMode="ADD"/>
+        <CheckedTexture name="$parentCheckedTexture" file="Interface\Buttons\CheckButtonHilight" alphaMode="ADD"/>
+        <Scripts>
+            <OnLoad function="BananaActionButton_OnLoad"/>
+        </Scripts>
+    </CheckButton>
+    <!-- parent设置为BananaPlayerFrame，这样Alt-Z能一起隐藏 -->
+    <Frame name="BananaMultiBarBottomLeft" parent="BananaPlayerFrame" frameLevel="22">
+        <Size x="162" y="36"/>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="TOPRIGHT" x="12" y="0"/>
+        </Anchors>
+        <Frames>
+            <CheckButton name="BananaMultiBarBottomLeftButton1" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaMultiBarBottomLeftButton2" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentButton1" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaMultiBarBottomLeftButton3" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentButton2" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaMultiBarBottomLeftButton4" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="$parentButton3" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+        </Frames>
+    </Frame>
+    <Frame name="BananaActionBar" parent="BananaMultiBarBottomLeft">
+        <Size x="162" y="36"/>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+        </Anchors>
+        <Frames>
+            <CheckButton name="BananaActionButton1" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaActionButton2" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BananaActionButton1" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaActionButton3" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BananaActionButton2" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaActionButton4" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BananaActionButton3" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+        </Frames>
+    </Frame>
+    <Frame name="BananaBonusActionBar" parent="BananaMultiBarBottomLeft">
+        <Size x="162" y="36"/>
+        <Anchors>
+            <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="0" y="-6"/>
+        </Anchors>
+        <Frames>
+            <CheckButton name="BananaBonusActionButton1" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="TOPLEFT"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaBonusActionButton2" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BananaBonusActionButton1" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaBonusActionButton3" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BananaBonusActionButton2" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+            <CheckButton name="BananaBonusActionButton4" inherits="BananaActionButtonTemplate">
+                <Anchors>
+                    <Anchor point="LEFT" relativeTo="BananaBonusActionButton3" relativePoint="RIGHT" x="4" y="0"/>
+                </Anchors>
+            </CheckButton>
+        </Frames>
+        <Scripts>
+            <OnLoad function="BananaBonusActionBar_OnLoad"/>
+        </Scripts>
+    </Frame>
+</Ui>

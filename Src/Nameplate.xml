@@ -1,0 +1,52 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Nameplate.lua"/>
+    <Frame name="BananaTargetNameplate">
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture file="Interface\MoneyFrame\Arrow-Left-Up">
+                    <Size x="16" y="16"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="92" y="-10"/>
+                    </Anchors>
+                </Texture>
+                <Texture file="Interface\MoneyFrame\Arrow-RIGHT-Up">
+                    <Size x="16" y="16"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="-92" y="-10"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Scripts>
+            <OnLoad function="BananaTargetNameplate_OnLoad"/>
+            <OnEvent function="BananaTargetNameplate_OnEvent"/>
+        </Scripts>
+        <Frames>
+            <StatusBar name="$parentHealthBar" inherits="BananaStatusBarTemplate">
+                <Size x="125.94755998091" y="11.004745458933"/>
+                <Anchors>
+                    <Anchor point="BOTTOMLEFT" x="4.8561866276823" y="4.8953495377809"/>
+                </Anchors>
+            </StatusBar>
+            <StatusBar name="$parentManaBar" inherits="BananaStatusBarTemplate">
+                <Size x="125.94755998091" y="7"/>
+                <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="BOTTOMLEFT" x="4.8561866276823" y="4.8953495377809"/>
+                </Anchors>
+            </StatusBar>
+            <Frame name="$parentComboFrame" inherits="BananaComboFrameTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="0" y="-36"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+    </Frame>
+    <!-- BananaNameplateScanner要放在BananaTargetNameplate下面，否则代码里调用的BananaTargetNameplate为nil -->
+    <Frame name="BananaNameplateScanner">
+        <Scripts>
+            <OnLoad function="BananaNameplateScanner_OnLoad"/>
+            <OnUpdate function="BananaNameplateScanner_OnUpdate"/>
+        </Scripts>
+    </Frame>
+</Ui>

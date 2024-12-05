@@ -1,0 +1,80 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="RuneFrame.lua"/>
+    <Button name="BananaRuneButtonTemplate" virtual="true">
+        <Size x="18" y="18"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture name="$parentIcon" file="Interface\PlayerFrame\UI-PlayerFrame-Deathknight-Death">
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+            <Layer level="BORDER">
+                <Texture file="Interface\PlayerFrame\UI-PlayerFrame-Deathknight-Ring">
+                    <Color r="0.6" g="0.6" b="0.6" a="1"/>
+                    <Size x="24" y="24"/>
+                    <Anchors>
+                        <Anchor point="CENTER" x="0" y="-1"/>
+                    </Anchors>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Cooldown name="$parentCooldown" drawEdge="true" frameStrata="LOW">
+                <Size x="15" y="15"/>
+                <Anchors>
+                    <Anchor point="CENTER" x="0" y="-1"/>
+                </Anchors>
+            </Cooldown>
+        </Frames>
+    </Button>
+    <Frame name="BananaRuneFrameTemplate" virtual="true">
+        <Size x="160" y="32"/>
+        <Layers>
+            <Layer level="BACKGROUND">
+                <Texture file="Interface\Glues\CharacterCreate\UI-CharacterCreate-IconShadow">
+                    <Color r="1" g="1" b="1" a="0.6"/>
+                </Texture>
+            </Layer>
+        </Layers>
+        <Frames>
+            <Frame name="$parentButton1" inherits="BananaRuneButtonTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="-52.5" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentButton2" inherits="BananaRuneButtonTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="-31.5" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentButton3" inherits="BananaRuneButtonTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="-10.5" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentButton4" inherits="BananaRuneButtonTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="10.5" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentButton5" inherits="BananaRuneButtonTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="31.5" y="0"/>
+                </Anchors>
+            </Frame>
+            <Frame name="$parentButton6" inherits="BananaRuneButtonTemplate">
+                <Anchors>
+                    <Anchor point="CENTER" x="52.5" y="0"/>
+                </Anchors>
+            </Frame>
+        </Frames>
+        <Scripts>
+            <OnLoad function="BananaRuneFrame_OnLoad"/>
+            <OnEvent function="BananaRuneFrame_OnEvent"/>
+        </Scripts>
+    </Frame>
+</Ui>

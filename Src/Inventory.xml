@@ -1,0 +1,36 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+..\FrameXML\UI.xsd">
+    <Script file="Inventory.lua"/>
+    <Button name="BananaSellAllButtonTemplate" virtual="true">
+        <Size x="32" y="32"/>
+        <NormalTexture file="Interface\Buttons\UI-GroupLoot-Coin-Up"/>
+        <HighlightTexture file="Interface\Buttons\UI-GroupLoot-Coin-Highlight" alphaMode="ADD"/>
+        <PushedTexture file="Interface\Buttons\UI-GroupLoot-Coin-Down"/>
+        <Scripts>
+            <OnClick>
+                if not MerchantFrame:IsShown() then
+                    return
+                end
+                local bag_id = self:GetParent():GetID()
+                for slot_index = 1, GetContainerNumSlots(bag_id) do
+                    UseContainerItem(bag_id, slot_index)
+                end
+            </OnClick>
+            <OnEnter>
+                GameTooltip:SetOwner(this, "ANCHOR_LEFT");
+                GameTooltip:SetText("Sell All");
+            </OnEnter>
+            <OnLeave>
+                GameTooltip:Hide();
+            </OnLeave>
+        </Scripts>
+    </Button>
+    <Script>
+        for i = 1, NUM_CONTAINER_FRAMES do
+            local container_name = 'ContainerFrame' .. i
+            local container = _G[container_name]
+            local button = CreateFrame('Button', container_name .. 'SellAllButton', container, 'BananaSellAllButtonTemplate')
+            button:SetPoint('TOPLEFT', 54, -14)
+        end
+    </Script>
+</Ui>
